@@ -1,0 +1,11 @@
+{
+  "name": "alex",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
