@@ -1,0 +1,14 @@
+name: alex
+recipe: wordpress
+config:
+  webroot: wordpress
+services:
+  appserver:
+    run:
+      - wp core download --path=/app/wordpress --force
+      - ln -snf /app/packages/alex-blocks /app/wordpress/wp-content/plugins/alex-blocks
+      - ln -snf /app/packages/alex-theme /app/wordpress/wp-content/themes/alex-theme
+      - wp config create --path=/app/wordpress --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=database --force
+      - wp core install --path=/app/wordpress --url=https://alex.lndo.site --title="Alex Site" --admin_user=admin --admin_password=password --admin_email=admin@alex.lndo.site --skip-email --quiet
+      - wp plugin activate --path=/app/wordpress --all
+      - wp theme activate --path=/app/wordpress alex-theme
