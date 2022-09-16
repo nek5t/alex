@@ -2,7 +2,7 @@
   "name": "@alex/components",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
@@ -21,9 +21,11 @@
     "@storybook/manager-webpack4": "^6.5.12",
     "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
+    "@types/react": "18.0.20",
     "babel-loader": "^8.2.5"
   },
   "dependencies": {
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "18.2.0"
   }
 }
