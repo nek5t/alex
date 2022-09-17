@@ -106,10 +106,13 @@ class AlexHeadless_REST_Controller {
         $xpath = new DOMXPath( $this->load_html($html) );
         $attribute = $attr['attribute'];
         $selector = $this->cssConverter($attr['selector']);
-        $selector .= "/@$attribute";
         $nodeList = $xpath->query($selector);
 
-        return $nodeList->item(0)?->nodeValue;
+        return $nodeList
+            ->item(0)
+            ?->attributes
+            ->getNamedItem($attribute)
+            ?->nodeValue;
     }
 
     private function get_source_text($html, $attr) {
