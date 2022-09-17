@@ -1,5 +1,24 @@
+import mapping from "../constants/block-mapping"
+
 const Post = ({post}) => {
-    return <h1>Hello World.</h1>
+    if (!post) return null
+
+    const {blocks} = post
+
+    return (
+        <main>
+            {Object.values(blocks).map((b,i) => {
+                const { blockName, attrs: props } = b
+                let Block = mapping.get(blockName)
+
+                if (undefined !== Block) {
+                    Block = <Block key={i} {...props} />
+                }
+
+                return Block
+            }).filter(b => b)}
+        </main>
+    )
 }
 
 const getStaticPaths = async () => {
