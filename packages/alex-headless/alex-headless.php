@@ -53,14 +53,18 @@ class AlexHeadless_REST_Controller {
     public function get_posts( $request ) {
         $accepted_content_types = apply_filters( 'alexhless_content_types', array( 'post', 'page' ) );
         $post = get_page_by_path( $request['path'], OBJECT, $accepted_content_types );
-        $post->blocks = $this->prepare_blocks( $post );
+        $post->blocks = $this->parse_blocks( $post );
         $response = new WP_REST_Response( $post );
 
         return rest_ensure_response( $response );
     }
 
-    private function prepare_blocks( $post ) {
-        $blocks = array_filter( parse_blocks( $post->post_content ), function($b) { return ! empty( $b['blockName'] ); } );
+    private function parse_blocks( $post )  {
+        return $this->prepare_blocks( parse_blocks( $post->post_content ) );
+    }
+
+    private function prepare_blocks($blocks) {
+        $blocks = array_filter( $blocks, function($b) { return ! empty( $b['blockName'] ); } );
 
         foreach( $blocks as &$block ) {
             $metadata = $this->registered_block_types[$block['blockName']];
@@ -78,6 +82,8 @@ class AlexHeadless_REST_Controller {
                     );
                 }
             }
+
+            $block['innerBlocks'] = $this->prepare_blocks($block['innerBlocks']);
         }
 
         return $blocks;
