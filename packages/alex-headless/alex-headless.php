@@ -53,8 +53,13 @@ class AlexHeadless_REST_Controller {
     public function get_posts( $request ) {
         $accepted_content_types = apply_filters( 'alexhless_content_types', array( 'post', 'page' ) );
         $post = get_page_by_path( $request['path'], OBJECT, $accepted_content_types );
-        $post->blocks = $this->parse_blocks( $post );
-        $response = new WP_REST_Response( $post );
+
+        if ($post) {
+            $post->blocks = $this->parse_blocks( $post );
+            $response = new WP_REST_Response( $post );
+        } else {
+            $response = new WP_REST_Response(null, 404);
+        }
 
         return rest_ensure_response( $response );
     }
