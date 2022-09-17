@@ -65,7 +65,7 @@ class AlexHeadless_REST_Controller {
     }
 
     private function parse_blocks( $post )  {
-        return $this->prepare_blocks( parse_blocks( $post->post_content ) );
+        return (array) $this->prepare_blocks( parse_blocks( $post->post_content ) );
     }
 
     private function prepare_blocks($blocks) {
