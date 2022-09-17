@@ -3,6 +3,7 @@ recipe: wordpress
 config:
   via: nginx
   webroot: wordpress
+  php: 8.1
 services:
   appserver:
     run:
