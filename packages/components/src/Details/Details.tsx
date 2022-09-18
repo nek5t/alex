@@ -8,9 +8,10 @@ export interface DetailsProps {
     blockProps: Record<string, any>
 }
 
-const Details = ({summary, details, ...blockProps} : DetailsProps) => {
-    const detailsContent = details || blockProps.innerBlocks
-    const summaryTemplate = () => <summary><h3>{summary}</h3></summary>
+const Details = ({summary, details, ...props} : DetailsProps) => {
+    const {innerBlocks, ...blockProps} = props
+    const detailsContent = details || innerBlocks
+    const summaryTemplate = () => <h3>{summary}</h3>
 
     return (
         <details {...blockProps}>
