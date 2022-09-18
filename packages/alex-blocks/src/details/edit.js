@@ -11,7 +11,9 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
+
+import { Details } from '@alex/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -29,10 +31,12 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit() {
-	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Details – hello from the editor!', 'details' ) }
-		</p>
-	);
+export default function Edit({attributes, setAttributes}) {
+	const props = useBlockProps()
+
+	props.summary = <RichText tagName='h3' value={attributes.summary} onChange={summary => setAttributes({summary})} />
+
+	props.details = <InnerBlocks />
+
+	return <Details {...props} />;
 }

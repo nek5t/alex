@@ -1,15 +1,24 @@
-import React from "react"
+import React, { ReactElement } from "react"
+
+import { InputTemplate } from '../../lib'
 
 export interface DetailsProps {
-    renderSummary: Function,
-    renderDetails: Function
+    summary: ReactElement | string[],
+    details: ReactElement | ReactElement[],
+    blockProps: Record<string, any>
 }
 
-const Details = ({renderSummary, renderDetails} : DetailsProps) => {
-    const summary = renderSummary()
-    const details = renderDetails()
+const Details = ({summary, details, ...blockProps} : DetailsProps) => {
+    const detailsContent = details || blockProps.innerBlocks
+    const summaryTemplate = () => <summary><h3>{summary}</h3></summary>
 
-    return <details><summary>{summary}</summary>{details}</details>
+    return (
+        <details {...blockProps}>
+            <summary><InputTemplate template={summaryTemplate} input={summary} /></summary>
+
+            {detailsContent}
+        </details>
+    ) 
 }
 
 export default Details

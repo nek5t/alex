@@ -3,12 +3,19 @@
 	"apiVersion": 2,
 	"name": "alexblocks/details",
 	"version": "0.1.0",
-	"title": "Details",
+	"title": "Details Disclosure",
 	"category": "text",
 	"icon": "smiley",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "A summary with expandable detailed content.",
 	"supports": {
 		"html": false
+	},
+	"attributes": {
+		"summary": {
+			"type": "string",
+			"source": "html",
+			"selector": "h3"
+		}
 	},
 	"textdomain": "alexblocks",
 	"editorScript": "file:./index.js",
