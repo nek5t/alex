@@ -14,3 +14,4 @@ function alexblocks_register_block_types() {
         register_block_type( $block );
     }
 }
+add_action( 'init', 'alexblocks_register_block_types' );
