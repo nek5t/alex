@@ -4,7 +4,7 @@
 	"name": "alexblocks/details",
 	"version": "0.1.0",
 	"title": "Details",
-	"category": "widgets",
+	"category": "text",
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"supports": {
