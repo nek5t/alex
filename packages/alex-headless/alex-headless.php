@@ -98,8 +98,21 @@ class AlexHeadless_REST_Controller {
         $xpath = new DOMXPath( $this->load_html($html) );
         $selector = $this->cssConverter->toXPath($attr['selector']);
         $nodeList = $xpath->query($selector);
+        $context_node = $nodeList->item(0);
+        $result = array();
 
-        return $nodeList->item(0)?->nodeValue;
+        if ($context_node && !empty($attr['multiline'])) {
+            $multi_selector = $this->cssConverter->toXPath($attr['multiline']);
+            $lines = $xpath->query($multi_selector, $context_node);
+
+            foreach($lines as $node) {
+                array_push($result, $node->nodeValue);
+            }
+        } else {
+            array_push( $result, $context_node?->nodeValue );
+        }
+
+        return array_filter( $result );
     }
 
     private function get_source_attribute($html, $attr) {
