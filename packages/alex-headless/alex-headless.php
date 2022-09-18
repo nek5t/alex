@@ -29,6 +29,11 @@ define('ALEX_ALLOWED_BLOCKS', array(
     'alexblocks/details'
 ));
 
+define('ALEX_UNUSED_PROPS', array(
+    'innerHTML',
+    'innerContent'
+));
+
 class AlexHeadless_REST_Controller {
     public function __construct()
     {
@@ -96,6 +101,12 @@ class AlexHeadless_REST_Controller {
             }
 
             $block['innerBlocks'] = $this->prepare_blocks($block['innerBlocks']);
+
+            $unset_props = apply_filters( 'alex_unwanted_props', ALEX_UNUSED_PROPS );
+
+            foreach( $unset_props as $prop ) {
+                unset($block[$prop]);
+            }
         }
 
         return array_values( $blocks );
