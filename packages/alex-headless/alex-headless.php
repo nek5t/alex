@@ -13,6 +13,7 @@ include_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use add_action;
+use add_filter;
 use apply_filters;
 use DOMDocument;
 use DOMXPath;
@@ -21,6 +22,12 @@ use rest_ensure_response;
 use WP_Block_Type_Registry;
 use WP_Error;
 use WP_REST_Response;
+
+define('ALEX_ALLOWED_BLOCKS', array(
+    'core/paragraph',
+    'core/quote',
+    'alexblocks/details'
+));
 
 class AlexHeadless_REST_Controller {
     public function __construct()
@@ -177,3 +184,23 @@ function alexhless_register_rest_routes() {
 }
 
 add_action( 'rest_api_init', __NAMESPACE__ . '\\alexhless_register_rest_routes' );
+
+function alexhless_filter_block_types() {
+    return apply_filters( 'alex_allowed_block_types', ALEX_ALLOWED_BLOCKS );
+}
+add_filter( 'allowed_block_types', __NAMESPACE__ . '\\alexhless_filter_block_types' );
+
+function alexhless_enqueue_editor_scripts() {
+    wp_register_script(
+        'alexheadless',
+        plugin_dir_url( __FILE__ ) . 'editor-script.js',
+        array( 'wp-blocks', 'wp-dom-ready' ),
+        false,
+        true
+    );
+
+    wp_localize_script( 'alexheadless', 'alexhless', array( 'allowedBlocks' => ALEX_ALLOWED_BLOCKS ) );
+
+    wp_enqueue_script( 'alexheadless' );
+}
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\\alexhless_enqueue_editor_scripts' );
