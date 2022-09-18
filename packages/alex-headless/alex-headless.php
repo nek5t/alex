@@ -172,7 +172,7 @@ class AlexHeadless_REST_Controller {
     }
 
     private function load_html($html) {
-        $this->html->loadHtml($html, LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
+        $this->html->loadHtml($html, LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED | LIBXML_NOERROR);
 
         return $this->html;
     }
