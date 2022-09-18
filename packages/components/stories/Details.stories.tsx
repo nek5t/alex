@@ -13,4 +13,9 @@ export default {
   component: Details,
 } as ComponentMeta<typeof Details>;
 
-export const Primary: ComponentStory<typeof Details> = () => <Details renderSummary={() => <h1>Summary</h1>} renderDetails={() => <p>Details</p>} />;
+const props = {
+  summary: <h3>Cool Summary</h3>,
+  details: <p>Cool Details</p>
+}
+
+export const Primary: ComponentStory<typeof Details> = () => <Details {...props} />;

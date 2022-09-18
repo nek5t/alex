@@ -1,0 +1,23 @@
+.details summary {
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        flex-direction: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+}
+
+.details summary::after {
+    content: '\002B';
+    font-size: 2em;
+    transform: rotate(0);
+    transition: transform 200ms ease-out;
+}
+
+.details[open] summary::after {
+    transform: rotate(45deg);
+}
+
+.details summary > * {
+    display: inline;
+}

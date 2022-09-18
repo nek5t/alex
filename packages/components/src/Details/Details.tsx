@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react"
 
 import { InputTemplate } from '../../lib'
-import styles from './Details.module.scss'
+import styles from './Details.module.css'
 
 export interface DetailsProps {
     summary: ReactElement | string[],
     details: ReactElement | ReactElement[],
-    blockProps: Record<string, any>
+    blockProps?: Record<string, any>
 }
 
 const Details = ({summary, details, ...props} : DetailsProps) => {
