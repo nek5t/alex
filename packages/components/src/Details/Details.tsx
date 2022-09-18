@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react"
 
 import { InputTemplate } from '../../lib'
+import styles from './Details.module.scss'
 
 export interface DetailsProps {
     summary: ReactElement | string[],
@@ -14,7 +15,7 @@ const Details = ({summary, details, ...props} : DetailsProps) => {
     const summaryTemplate = () => <h3>{summary}</h3>
 
     return (
-        <details {...blockProps}>
+        <details {...blockProps} className={styles.details}>
             <summary><InputTemplate template={summaryTemplate} input={summary} /></summary>
 
             {detailsContent}
