@@ -1,4 +1,4 @@
-import mapping from "../constants/block-mapping"
+import renderBlocks from "../lib/render-blocks"
 
 const Post = ({post}) => {
     if (!post) return null
@@ -6,18 +6,7 @@ const Post = ({post}) => {
     const {blocks} = post
 
     return (
-        <main>
-            {Object.values(blocks).map((b,i) => {
-                const { blockName, attrs: props } = b
-                let Block = mapping.get(blockName)
-
-                if (undefined !== Block) {
-                    Block = <Block key={i} {...props} />
-                }
-
-                return Block
-            }).filter(b => b)}
-        </main>
+        <main>{renderBlocks(blocks)}</main>
     )
 }
 
