@@ -7,4 +7,6 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+const withTranspiledModules = require('next-transpile-modules')(['@alex/components'])
+
+module.exports = withTranspiledModules(nextConfig)
