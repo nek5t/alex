@@ -89,7 +89,7 @@ class AlexHeadless_REST_Controller {
             foreach($metadata->attributes as $attr_name => $attr) {
                 if (!empty($attr['source'])) {
                     $attr_value = call_user_func_array(
-                        array( $this, 'get_source_' . $attr['source'] ), 
+                        array( $this, 'get_source_' . $attr['source'] ),
                         array( $block['innerHTML'], $attr )
                     );
 
@@ -130,7 +130,7 @@ class AlexHeadless_REST_Controller {
             array_push( $result, $context_node?->nodeValue );
         }
 
-        return array_filter( $result );
+        return array_values( array_filter( $result ) );
     }
 
     private function get_source_attribute($html, $attr) {
