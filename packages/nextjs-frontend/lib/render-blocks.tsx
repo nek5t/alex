@@ -1,20 +1,26 @@
-import React from 'react'
-import mapping from '../constants/block-mapping'
+import React from 'react';
+import mapping from '../constants/block-mapping';
 
 const renderBlocks = (blocks) => {
-    return blocks
-        .filter(b => b.blockName)
-        .filter(b => mapping.get(b.blockName))
-        .map((b,i) => {
-        const { blockName, attrs, ...blockProps } = b
-        const Component = mapping.get(blockName)
+	if (undefined === blocks) return [];
 
-        blockProps.innerBlocks = renderBlocks(blockProps.innerBlocks)
+	return blocks
+		.filter((b) => b.blockName)
+		.filter((b) => mapping.get(b.blockName))
+		.map((b, i) => {
+			const { blockName, attrs, innerBlocks, ...blockProps } = b;
+			const Component = mapping.get(blockName);
 
-        const props = { ...attrs, ...blockProps }
+			const renderedInnerBlocks = renderBlocks(innerBlocks);
 
-        return <Component key={i} {...props} />
-    })
-}
+			const props = {
+				...attrs,
+				innerBlocks: renderedInnerBlocks,
+				...blockProps,
+			};
 
-export default renderBlocks
+			return <Component key={i} {...props} />;
+		});
+};
+
+export default renderBlocks;

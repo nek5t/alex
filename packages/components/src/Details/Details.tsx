@@ -6,16 +6,16 @@ import { details as styles } from './Details.module.css';
 export interface DetailsProps {
 	summary: ReactElement | string[];
 	details: ReactElement | ReactElement[];
-	blockProps?: Record<string, any>;
+	innerBlocks?: ReactElement[];
+	props?: Record<string, any>;
 }
 
-const Details = ({ summary, details, ...props }: DetailsProps) => {
-	const { innerBlocks, ...blockProps } = props;
+const Details = ({ summary, details, innerBlocks, ...props }: DetailsProps) => {
 	const detailsContent = details || innerBlocks;
 	const summaryTemplate = () => <h3>{summary}</h3>;
 
 	return (
-		<details {...blockProps} className={styles}>
+		<details {...props} className={styles}>
 			<summary>
 				<InputTemplate template={summaryTemplate} input={summary} />
 			</summary>
