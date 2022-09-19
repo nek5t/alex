@@ -1,7 +1,8 @@
 import React from 'react';
 import mapping from '../constants/block-mapping';
+import { GutenbergBlock } from '../lib';
 
-const renderBlocks = (blocks) => {
+const renderBlocks = (blocks: Array<GutenbergBlock>) => {
 	if (undefined === blocks) return [];
 
 	return blocks

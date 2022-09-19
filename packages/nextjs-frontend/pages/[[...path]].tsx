@@ -1,6 +1,10 @@
-import renderBlocks from '../lib/render-blocks';
+import { renderBlocks, Post as WordPressPost } from '../lib';
 
-const Post = ({ post }) => {
+export interface PostProps {
+	post: WordPressPost | null;
+}
+
+const Post = ({ post }: PostProps) => {
 	if (!post) return null;
 
 	const { blocks } = post;
@@ -16,7 +20,7 @@ const getStaticPaths = async () => {
 	};
 };
 
-const getStaticProps = async (ctx) => {
+const getStaticProps = async (ctx: { params: { path: Array<string> } }) => {
 	const path = ctx.params?.path.join('/') || '/';
 	const endpoint = 'wp-json/alex/v1/posts';
 	const url = new URL(endpoint, process.env.WP_URL);
