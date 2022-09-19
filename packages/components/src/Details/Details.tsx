@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { InputTemplate } from '../../lib';
+import { InputTemplate, TemplateFunction } from '../../lib';
 import { details as styles } from './Details.module.css';
 
 export interface DetailsProps {
@@ -12,7 +12,7 @@ export interface DetailsProps {
 
 const Details = ({ summary, details, innerBlocks, ...props }: DetailsProps) => {
 	const detailsContent = details || innerBlocks;
-	const summaryTemplate = () => <h3>{summary}</h3>;
+	const summaryTemplate: TemplateFunction = () => <h3>{summary}</h3>;
 
 	return (
 		<details {...props} className={styles}>

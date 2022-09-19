@@ -1,16 +1,18 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement } from 'react';
+
+export type TemplateFunction = () => ReactElement;
 
 export interface InputTemplateProps {
-    template?: Function,
-    input: ReactElement | string[]
+	template?: TemplateFunction;
+	input: ReactElement | Array<string>;
 }
 
-const InputTemplate = ({template, input} : InputTemplateProps) => {
-    if (React.isValidElement(input)) return input
+const InputTemplate = ({ template, input }: InputTemplateProps) => {
+	if (React.isValidElement(input)) return input;
 
-    if (undefined === template) return null
+	if (undefined === template) return null;
 
-    return template()
-}
+	return template();
+};
 
-export default InputTemplate
+export default InputTemplate;
