@@ -136,7 +136,7 @@ class AlexHeadless_REST_Controller {
     private function get_source_attribute($html, $attr) {
         $xpath = new DOMXPath( $this->load_html($html) );
         $attribute = $attr['attribute'];
-        $selector = $this->cssConverter($attr['selector']);
+        $selector = $this->cssConverter->toXPath($attr['selector']);
         $nodeList = $xpath->query($selector);
 
         return $nodeList
@@ -157,7 +157,7 @@ class AlexHeadless_REST_Controller {
     private function get_source_query($html, $attr) {
         $xpath = new DOMXPath( $this->load_html($html) );
         $selector = $this->cssConverter->toXPath($attr['selector']);
-        $nodeList = $this->query($selector);
+        $nodeList = $xpath->query($selector);
         $result = array();
 
         foreach($nodeList as $node) {
