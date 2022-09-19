@@ -3,7 +3,12 @@ lockfileVersion: 5.4
 importers:
 
   .:
-    specifiers: {}
+    specifiers:
+      '@wordpress/prettier-config': ^2.0.0
+      prettier: ^2.7.1
+    devDependencies:
+      '@wordpress/prettier-config': 2.0.0_prettier@2.7.1
+      prettier: 2.7.1
 
   packages/alex-blocks:
     specifiers:
@@ -5208,6 +5213,15 @@ packages:
       postcss: 8.4.16
     dev: true
 
+  /@wordpress/prettier-config/2.0.0_prettier@2.7.1:
+    resolution: {integrity: sha512-mzBc5LpsBphhWHClLX3mZeCoDMq5qOSd0JWn+Zo/ipUidhBRSaKR2fpMkH2fzIIeoPdy+cj1n3pWAk/Y/BHsSQ==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      prettier: '>=2'
+    dependencies:
+      prettier: 2.7.1
+    dev: true
+
   /@wordpress/prettier-config/2.0.0_wp-prettier@2.6.2:
     resolution: {integrity: sha512-mzBc5LpsBphhWHClLX3mZeCoDMq5qOSd0JWn+Zo/ipUidhBRSaKR2fpMkH2fzIIeoPdy+cj1n3pWAk/Y/BHsSQ==}
     engines: {node: '>=14'}
@@ -5826,7 +5840,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001405
+      caniuse-lite: 1.0.30001406
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -5839,7 +5853,7 @@ packages:
     hasBin: true
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001405
+      caniuse-lite: 1.0.30001406
       normalize-range: 0.1.2
       num2fraction: 1.2.2
       picocolors: 0.2.1
@@ -6350,7 +6364,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001405
+      caniuse-lite: 1.0.30001406
       electron-to-chromium: 1.4.254
       node-releases: 2.0.6
       update-browserslist-db: 1.0.9_browserslist@4.21.4
@@ -6553,13 +6567,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001405
+      caniuse-lite: 1.0.30001406
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
 
-  /caniuse-lite/1.0.30001405:
-    resolution: {integrity: sha512-lbm+F6HaYFGfjejrTlgB6IZQSZjpA1qcrjGsuvecatP93emI66a41hmQJIW+KNMhcuusgQW0R0E9qvP+Hq7eLg==}
+  /caniuse-lite/1.0.30001406:
+    resolution: {integrity: sha512-bWTlaXUy/rq0BBtYShc/jArYfBPjEV95euvZ8JVtO43oQExEN/WquoqpufFjNu4kSpi5cy5kMbNvzztWDfv1Jg==}
 
   /capital-case/1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -12629,7 +12643,7 @@ packages:
     dependencies:
       '@next/env': 12.3.0
       '@swc/helpers': 0.4.11
-      caniuse-lite: 1.0.30001405
+      caniuse-lite: 1.0.30001406
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
