@@ -6,9 +6,13 @@
 		{
 			"path": "../packages/components",
 			"name": "@alex/components"
+		},
+		{
+			"path": "../packages/nextjs-frontend",
+			"name": "@alex/nextjs-frontend"
 		}
-    ],
-    "settings": {
+	],
+	"settings": {
 		"files.exclude": {
 			"**/.git": true,
 			"**/.svn": true,
@@ -23,6 +27,6 @@
 		},
 		"typescript.tsdk": "@alex/components/node_modules/typescript/lib",
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true,
+		"editor.formatOnSave": true
 	}
 }
