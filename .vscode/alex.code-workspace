@@ -21,6 +21,8 @@
 			"**/build/": true,
 			"wordpress/": true
 		},
-		"typescript.tsdk": "@alex/components/node_modules/typescript/lib"
+		"typescript.tsdk": "@alex/components/node_modules/typescript/lib",
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true,
 	}
 }
