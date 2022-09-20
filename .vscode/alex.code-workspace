@@ -10,6 +10,18 @@
 		{
 			"path": "../packages/nextjs-frontend",
 			"name": "@alex/nextjs-frontend"
+		},
+		{
+			"path": "../packages/alex-headless",
+			"name": "@alex/headless"
+		},
+		{
+			"path": "../packages/alex-blocks",
+			"name": "@alex/blocks"
+		},
+		{
+			"path": "../packages/alex-theme",
+			"name": "@alex/theme"
 		}
 	],
 	"settings": {
