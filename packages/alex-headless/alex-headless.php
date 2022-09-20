@@ -12,18 +12,22 @@ namespace AlexHeadless\Endpoint;
 include_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 use Symfony\Component\CssSelector\CssSelectorConverter;
-use add_action;
-use add_filter;
-use apply_filters;
-use DOMDocument;
-use DOMXPath;
-use esc_html__;
-use rest_ensure_response;
-use WP_Block_Type_Registry;
-use WP_Error;
-use WP_REST_Response;
+use \WP_Query;
+use \add_action;
+use \add_filter;
+use \apply_filters;
+use \DOMDocument;
+use \DOMXPath;
+use \esc_html__;
+use \rest_ensure_response;
+use \WP_Block_Type_Registry;
+use \WP_Error;
+use \WP_REST_Response;
 
 define('ALEX_ALLOWED_BLOCKS', array(
+	'core/template-part',
+	'core/post-title',
+	'core/post-content',
     'core/paragraph',
     'core/quote',
     'alexblocks/details'
@@ -63,28 +67,68 @@ class AlexHeadless_REST_Controller {
     }
 
     public function get_posts( $request ) {
+		global $post;
+		global $_wp_current_template_content;
         $accepted_content_types = apply_filters( 'alexhless_content_types', array( 'post', 'page' ) );
-        $post = get_page_by_path( $request['path'], OBJECT, $accepted_content_types );
+		$data = null;
 
-        if ($post) {
-            $post->blocks = $this->parse_blocks( $post );
-            $response = new WP_REST_Response( $post );
-        } else {
-            $response = new WP_REST_Response(null, 404);
-        }
+		query_posts(array(
+			'name' => $request['path'],
+			'post_type' => $accepted_content_types,
+			'posts_per_page' => 1,
+			'_wp-find-template' => true
+		));
+
+		if (have_posts()) {
+			ob_start();
+			require_once( ABSPATH . WPINC . '/template-loader.php' );
+			ob_end_clean();
+
+			while (have_posts()) {
+				the_post();
+				$data = $post;
+				$data->template_content = $_wp_current_template_content;
+				$data->blocks = $this->parse_blocks( $data );
+			}
+		}
+
+		$response = new WP_REST_Response( $data );
+
+		wp_reset_query();
 
         return rest_ensure_response( $response );
     }
 
     private function parse_blocks( $post )  {
-        return $this->prepare_blocks( parse_blocks( $post->post_content ) );
+        return $this->prepare_blocks( parse_blocks( $post->template_content ) );
     }
 
     private function prepare_blocks($blocks) {
+		global $post;
         $blocks = array_filter( $blocks, function($b) { return ! empty( $b['blockName'] ); } );
 
         foreach( $blocks as &$block ) {
-            $metadata = $this->registered_block_types[$block['blockName']];
+			$name = $block['blockName'];
+            $metadata = $this->registered_block_types[$name];
+			$isDynamic = !empty($metadata->render_callback) && function_exists($metadata->render_callback);
+
+			$block['dynamic'] = $isDynamic;
+			$block['rendered'] = null;
+
+			if (true === $isDynamic) {
+				if ('core/template-part' === $name) {
+					$template_content = $this->get_template_content($block);
+					if ($template_content) {
+						$block['innerBlocks'] = parse_blocks( $template_content );
+					}
+
+
+				} elseif ('core/post-content' === $name) {
+					$block['innerBlocks'] = parse_blocks( $post->post_content );
+				} else {
+					$block['rendered'] =  render_block( $block );
+				}
+			}
 
             foreach($metadata->attributes as $attr_name => $attr) {
                 if (!empty($attr['source'])) {
@@ -187,6 +231,54 @@ class AlexHeadless_REST_Controller {
 
         return $this->html;
     }
+
+	private function get_template_content( $template_part ) {
+		$attributes = $template_part['attrs'];
+		$template_content = '';
+
+		if (
+			isset( $attributes['slug'] ) &&
+			isset( $attributes['theme'] ) &&
+			wp_get_theme()->get_stylesheet() === $attributes['theme']
+		) {
+			$template_part_id    = $attributes['theme'] . '//' . $attributes['slug'];
+			$template_part_query = new WP_Query(
+				array(
+					'post_type'      => 'wp_template_part',
+					'post_status'    => 'publish',
+					'post_name__in'  => array( $attributes['slug'] ),
+					'tax_query'      => array(
+						array(
+							'taxonomy' => 'wp_theme',
+							'field'    => 'slug',
+							'terms'    => $attributes['theme'],
+						),
+					),
+					'posts_per_page' => 1,
+					'no_found_rows'  => true,
+				)
+			);
+			$template_part_post  = $template_part_query->have_posts() ? $template_part_query->next_post() : null;
+		}
+
+		if ($template_part_post) {
+			$template_content = $template_part_post->post_content;
+		} else {
+			// Else, if the template part was provided by the active theme,
+			// render the corresponding file content.
+			$parent_theme_folders        = get_block_theme_folders( get_template() );
+			$child_theme_folders         = get_block_theme_folders( get_stylesheet() );
+			$child_theme_part_file_path  = get_theme_file_path( '/' . $child_theme_folders['wp_template_part'] . '/' . $attributes['slug'] . '.html' );
+			$parent_theme_part_file_path = get_theme_file_path( '/' . $parent_theme_folders['wp_template_part'] . '/' . $attributes['slug'] . '.html' );
+			$template_part_file_path     = 0 === validate_file( $attributes['slug'] ) && file_exists( $child_theme_part_file_path ) ? $child_theme_part_file_path : $parent_theme_part_file_path;
+
+			if ( 0 === validate_file( $attributes['slug'] ) && file_exists( $template_part_file_path ) ) {
+				$template_content = file_get_contents( $template_part_file_path );
+			}
+		}
+
+		return $template_content;
+	}
 }
 
 function alexhless_register_rest_routes() {
