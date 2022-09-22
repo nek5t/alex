@@ -23,12 +23,18 @@ import { Details } from '@alex/components';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({attributes, setAttributes}) {
-	const props = useBlockProps()
+export default function Edit({ attributes, setAttributes }) {
+	const props = useBlockProps();
 
-	props.summary = <RichText tagName='h3' value={attributes.summary} onChange={summary => setAttributes({summary})} />
+	props.summary = (
+		<RichText
+			tagName="h3"
+			value={attributes.summary}
+			onChange={(summary) => setAttributes({ summary })}
+		/>
+	);
 
-	props.details = <InnerBlocks />
+	props.details = <InnerBlocks />;
 
 	return <Details {...props} />;
 }
