@@ -1,3 +1,6 @@
 node_modules
 vendor
 wordpress
+.pnpm-store
+.env*
+!.env.example
