@@ -1,19 +1,40 @@
 name: alex
 recipe: wordpress
 config:
-  via: nginx
-  webroot: wordpress
-  php: 8.1
+    via: nginx
+    webroot: wordpress
+    php: 8.1
+proxy:
+    node:
+        - alex-sb.lndo.site:9000
+        - alex-next.lndo.site:9001
 services:
-  appserver:
-    run:
-      - wp core download --path=/app/wordpress --force
-      - ln -snf /app/packages/alex-blocks /app/wordpress/wp-content/plugins/alex-blocks
-      - ln -snf /app/packages/alex-headless /app/wordpress/wp-content/plugins/alex-headless
-      - ln -snf /app/packages/alex-theme /app/wordpress/wp-content/themes/alex-theme
-      - wp config create --path=/app/wordpress --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=database --force
-      - wp core install --path=/app/wordpress --url=https://alex.lndo.site --title="Alex Site" --admin_user=admin --admin_password=password --admin_email=admin@alex.lndo.site --skip-email --quiet
-      - wp plugin activate --path=/app/wordpress --all
-      - wp theme activate --path=/app/wordpress alex-theme
-      - wp rewrite structure --path=/app/wordpress "%postname%" --hard
-      - wp cache flush --path=/app/wordpress
+    node:
+        type: node:16
+        run_as_root:
+            - corepack enable
+            - corepack prepare pnpm@latest --activate
+        run:
+            - pnpm update -r
+            - pnpm run start
+    appserver:
+        run:
+            - find packages -maxdepth 2 -type f -name composer.json -execdir composer install --no-dev --prefer-dist --no-interaction \;
+            - wp core download --path=/app/wordpress --force
+            - ln -snf /app/packages/alex-blocks /app/wordpress/wp-content/plugins/alex-blocks
+            - ln -snf /app/packages/alex-headless /app/wordpress/wp-content/plugins/alex-headless
+            - ln -snf /app/packages/alex-theme /app/wordpress/wp-content/themes/alex-theme
+            - wp config create --path=/app/wordpress --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=database --force
+            - wp core install --path=/app/wordpress --url=https://alex.lndo.site --title="Alex Site" --admin_user=admin --admin_password=password --admin_email=admin@alex.lndo.site --skip-email --quiet
+            - wp plugin activate --path=/app/wordpress --all
+            - wp theme activate --path=/app/wordpress alex-theme
+            - wp rewrite structure --path=/app/wordpress "%postname%" --hard
+            - wp cache flush --path=/app/wordpress
+env_file:
+    - .env.local
+tooling:
+    npm:
+        service: node
+        cmd: pnpm
+exclude:
+    - .pnpm-store
