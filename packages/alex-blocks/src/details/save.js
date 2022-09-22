@@ -13,15 +13,19 @@ import { Details } from '@alex/components';
  * be combined into the final markup, which is then serialized by the block
  * editor into `post_content`.
  *
+ * @param {Object} props
+ * @param {Object} props.attributes
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
  *
  * @return {WPElement} Element to render.
  */
-export default function save({attributes}) {
-	const props = useBlockProps.save()
+export default function save({ attributes }) {
+	const props = useBlockProps.save();
 
-	props.summary = <RichText.Content tagName='h3' value={attributes.summary} />
-	props.details = <InnerBlocks.Content />
+	props.summary = (
+		<RichText.Content tagName="h3" value={attributes.summary} />
+	);
+	props.details = <InnerBlocks.Content />;
 
-	return <Details {...props} />
+	return <Details {...props} />;
 }
