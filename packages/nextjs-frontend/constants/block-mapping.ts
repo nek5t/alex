@@ -1,9 +1,10 @@
-import { Paragraph, Quote, Details } from '@alex/components'
+import { Paragraph, List, Quote, Details } from '@alex/components';
 
 const blockMap = new Map();
 
-blockMap.set('core/paragraph', Paragraph)
-blockMap.set('core/quote', Quote)
-blockMap.set('alexblocks/details', Details)
+blockMap.set('core/paragraph', Paragraph);
+blockMap.set('core/list', List);
+blockMap.set('core/quote', Quote);
+blockMap.set('alexblocks/details', Details);
 
-export default blockMap
+export default blockMap;
