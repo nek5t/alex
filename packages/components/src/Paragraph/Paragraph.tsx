@@ -1,12 +1,12 @@
-import React from "react"
+import React from 'react';
+import { GutenbergBlock } from '../../lib';
 
-export interface ParagraphProps {
-    content: string
+export interface ParagraphProps extends GutenbergBlock {
+	content: string;
 }
 
-const Paragraph = ({content} : ParagraphProps) => {
+const Paragraph = ({ content: __html, props }: ParagraphProps) => {
+	return <p {...props} dangerouslySetInnerHTML={{ __html }} />;
+};
 
-    return <p>{content}</p>
-}
-
-export default Paragraph
+export default Paragraph;

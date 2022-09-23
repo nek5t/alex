@@ -1,0 +1,25 @@
+<!-- List.stories.mdx -->
+
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+import Paragraph from '.';
+
+export const Template = (args) => <Paragraph {...args} />;
+
+<Meta title="Blocks/Core/Paragraph" component={Paragraph} />
+
+# List
+
+A paragraph element.
+
+<Canvas>
+	<Story
+		name="Default"
+		args={{
+			ordered: false,
+			content: 'The paragraph',
+		}}
+	>
+		{Template.bind({})}
+	</Story>
+</Canvas>
