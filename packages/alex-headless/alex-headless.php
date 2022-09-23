@@ -25,6 +25,8 @@ use WP_REST_Response;
 
 define('ALEX_ALLOWED_BLOCKS', array(
     'core/paragraph',
+	'core/list',
+	'core/list-item',
     'core/quote',
     'alexblocks/details'
 ));
@@ -87,18 +89,33 @@ class AlexHeadless_REST_Controller {
             $metadata = $this->registered_block_types[$block['blockName']];
 
             foreach($metadata->attributes as $attr_name => $attr) {
+				$value = null;
+				$hasValue = isset($block['attrs'][$attr_name]);
+
+				if ($hasValue) {
+					$value = $block['attrs'][$attr_name];
+				}
+
                 if (!empty($attr['source'])) {
                     $attr_value = call_user_func_array(
                         array( $this, 'get_source_' . $attr['source'] ),
                         array( $block['innerHTML'], $attr )
                     );
 
-                    $block['attrs'] = array_merge(
-                        array( $attr_name => $attr_value ),
-                        $block['attrs']
-                    );
+					$value = $attr_value;
                 }
-            }
+
+				if (null === $value && isset($attr['default'])) {
+					$value = $attr['default'];
+				}
+
+				$block['attrs'] = array_merge(
+					$block['attrs'],
+					array( $attr_name => $value )
+				);
+			}
+
+			$block['attrs'] = array_filter($block['attrs'], function($v) { return null !== $v; });
 
             $block['innerBlocks'] = $this->prepare_blocks($block['innerBlocks']);
 
