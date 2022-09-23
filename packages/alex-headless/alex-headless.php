@@ -141,10 +141,10 @@ class AlexHeadless_REST_Controller {
             $lines = $xpath->query($multi_selector, $context_node);
 
             foreach($lines as $node) {
-                array_push($result, $node->nodeValue);
+                array_push($result, $this->innerHTML($node));
             }
         } else {
-            array_push( $result, $context_node?->nodeValue );
+            array_push( $result, $this->innerHTML($context_node));
         }
 
         return array_values( array_filter( $result ) );
@@ -198,6 +198,17 @@ class AlexHeadless_REST_Controller {
     private function save_html($node) {
         return $this->html->saveHTML($node);
     }
+
+	private function innerHTML($node) {
+		$html = '';
+		$childNodes = $node?->childNodes ?: array();
+
+		foreach($childNodes as $childNode) {
+			$html .= $this->save_html($childNode);
+		}
+
+		return $html;
+	}
 
     private function load_html($html) {
         $this->html->loadHtml($html, LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED | LIBXML_NOERROR);
