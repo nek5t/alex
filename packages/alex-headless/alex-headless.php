@@ -12,15 +12,9 @@ namespace AlexHeadless\Endpoint;
 include_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 use Symfony\Component\CssSelector\CssSelectorConverter;
-use add_action;
-use add_filter;
-use apply_filters;
 use DOMDocument;
 use DOMXPath;
-use esc_html__;
-use rest_ensure_response;
 use WP_Block_Type_Registry;
-use WP_Error;
 use WP_REST_Response;
 
 define('ALEX_ALLOWED_BLOCKS', array(
