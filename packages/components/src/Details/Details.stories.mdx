@@ -4,15 +4,9 @@ import { Meta, Story, Canvas } from '@storybook/addon-docs';
 
 import Details from '.';
 
-export const staticProps = {
-	details: <p>Cool Details</p>,
-};
+export const Template = (args) => <Details {...args} />;
 
-export const Template = (args) => (
-	<Details {...staticProps} summary={<h3>{args.summary}</h3>} />
-);
-
-<Meta title="Blocks/Details" component={Details} />
+<Meta title="Blocks/Alex/Details" component={Details} />
 
 # Details Disclosure
 
@@ -34,6 +28,8 @@ An expandable details element with summary heading.
 		}}
 		args={{
 			summary: 'Cool Summary',
+			details: <p>Cool Details</p>,
+			asDiv: false,
 		}}
 	>
 		{Template.bind({})}

@@ -1,0 +1,25 @@
+<!-- List.stories.mdx -->
+
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+import List from '.';
+
+export const Template = (args) => <List {...args} />;
+
+<Meta title="Blocks/Core/List" component={List} />
+
+# List
+
+A list element and its items.
+
+<Canvas>
+	<Story
+		name="Default"
+		args={{
+			ordered: false,
+			values: ['item 1', 'item 2'],
+		}}
+	>
+		{Template.bind({})}
+	</Story>
+</Canvas>
