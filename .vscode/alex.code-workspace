@@ -10,6 +10,10 @@
 		{
 			"path": "../packages/nextjs-frontend",
 			"name": "@alex/nextjs-frontend"
+		},
+		{
+			"path": "../packages/alex-headless",
+			"name": "@alex/headless"
 		}
 	],
 	"settings": {
