@@ -1,0 +1,24 @@
+<!-- Quote.stories.mdx -->
+
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+import Quote from '.';
+
+export const Template = (args) => <Quote {...args} />;
+
+<Meta title="Blocks/Core/Quote" component={Quote} />
+
+# List
+
+A blockquote element.
+
+<Canvas>
+	<Story
+		name="Default"
+		args={{
+			value: [`<p>You can quote me!</p>`],
+		}}
+	>
+		{Template.bind({})}
+	</Story>
+</Canvas>
