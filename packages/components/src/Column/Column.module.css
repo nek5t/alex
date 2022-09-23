@@ -1,0 +1,16 @@
+.column {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.column.top {
+	align-self: flex-start;
+}
+
+.column.center {
+	align-self: center;
+}
+
+.column.bottom {
+	align-self: bottom;
+}

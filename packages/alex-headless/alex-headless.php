@@ -21,6 +21,9 @@ define('ALEX_ALLOWED_BLOCKS', array(
     'core/paragraph',
 	'core/list',
 	'core/list-item',
+	'core/image', // Necessary to load Columns block
+	'core/columns',
+	'core/column',
     'core/quote',
     'alexblocks/details'
 ));
