@@ -1,0 +1,22 @@
+<!-- Details.stories.mdx -->
+
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+import Details from '.';
+
+export const props = {
+	summary: <h3>Cool Summary</h3>,
+	details: <p>Cool Details</p>,
+};
+
+<Meta title="Components\Details" component={Details} />
+
+# Details Disclosure
+
+An expandable details element with summary heading.
+
+<Canvas>
+	<Story name="Default">
+		<Details {...props} />
+	</Story>
+</Canvas>

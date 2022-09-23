@@ -36,6 +36,7 @@ importers:
       '@babel/core': ^7.19.1
       '@babel/runtime': ^7.19.0
       '@storybook/addon-actions': ^6.5.12
+      '@storybook/addon-docs': ^6.5.12
       '@storybook/addon-essentials': ^6.5.12
       '@storybook/addon-interactions': ^6.5.12
       '@storybook/addon-links': ^6.5.12
@@ -56,6 +57,7 @@ importers:
       '@babel/core': 7.19.1
       '@babel/runtime': 7.19.0
       '@storybook/addon-actions': 6.5.12_biqbaboplfbrettd7655fr4n2y
+      '@storybook/addon-docs': 6.5.12_vs5bgamwwgdnbirh2tcoy3oij4
       '@storybook/addon-essentials': 6.5.12_mekjjfdh4hthgnnd5kli46y3xa
       '@storybook/addon-interactions': 6.5.12_synxnxbvuog6xowtndxwunielm
       '@storybook/addon-links': 6.5.12_biqbaboplfbrettd7655fr4n2y
