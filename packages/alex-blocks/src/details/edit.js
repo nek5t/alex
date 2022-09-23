@@ -21,6 +21,7 @@ import { Details } from '@alex/components';
  */
 export default function Edit({ attributes, setAttributes }) {
 	const props = useBlockProps();
+	props.asDiv = true;
 
 	props.summary = (
 		<RichText
