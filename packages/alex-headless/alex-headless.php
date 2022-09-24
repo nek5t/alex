@@ -8,8 +8,6 @@
  * Text Domain:       alexhless
  */
 
-use Alex\Headless\REST_Controller;
-
 if (!defined('ABSPATH')) exit;
 
 if (!class_exists('Alex\\Headless\\Controller')) {
