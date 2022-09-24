@@ -3,6 +3,7 @@
 namespace Alex\Headless\Blocks;
 
 use Symfony\Component\CssSelector\CssSelectorConverter;
+use Alex\Headless\Blocks\Renderer;
 
 class Parser
 {
@@ -12,6 +13,7 @@ class Parser
 		$this->html = new \DOMDocument('1.0', 'UTF-8');
 		$this->convert_selector = new CssSelectorConverter();
 		$this->block_registry = \WP_Block_Type_Registry::get_instance();
+		$this->block_renderer = new Renderer();
 	}
 
 	public function prepare_blocks($blocks)
@@ -51,6 +53,16 @@ class Parser
 						array($attr_name => $value)
 					);
 				}
+			}
+
+			/**
+			 * Return dynamic rendered props
+			 */
+			if ($block_type->is_dynamic() && method_exists($this->block_renderer, $block_type->render_callback)) {
+				$block['attrs'] = array_merge(
+					$block['attrs'],
+					call_user_func(array($this->block_renderer, $block_type->render_callback), $block['attrs'])
+				);
 			}
 
 			$block['attrs'] = array_filter($block['attrs'], function ($v) {
