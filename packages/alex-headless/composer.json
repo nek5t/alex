@@ -1,5 +1,13 @@
 {
-    "require": {
-        "symfony/css-selector": "^6.1"
-    }
+	"name": "alex/headless",
+	"description": "Surface blocks as structured data in the WordPress REST API.",
+	"type": "wordpress-plugin",
+	"require": {
+		"symfony/css-selector": "^6.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"Alex\\Headless\\": "src"
+		}
+	}
 }
