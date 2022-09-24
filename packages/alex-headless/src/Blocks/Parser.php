@@ -24,14 +24,20 @@ class Parser
 			$name = $block['blockName'];
 			$block_type = $this->block_registry->get_registered($name);
 
+			/**
+			 * Apply current and default attribute values
+			 */
+			$block['attrs'] = $block_type->prepare_attributes_for_render($block['attrs']);
+
+			/**
+			 * Attach information about whether the block is static or dynamic
+			 */
+			$block['dynamic'] = $block_type->is_dynamic();
+
+			/**
+			 * Extract attribute values saved in block markup
+			 */
 			foreach ($block_type->attributes as $attr_name => $attr) {
-				$value = null;
-				$hasValue = isset($block['attrs'][$attr_name]);
-
-				if ($hasValue) {
-					$value = $block['attrs'][$attr_name];
-				}
-
 				if (!empty($attr['source'])) {
 					$attr_value = call_user_func_array(
 						array($this, 'get_source_' . $attr['source']),
@@ -39,16 +45,12 @@ class Parser
 					);
 
 					$value = $attr_value;
-				}
 
-				if (null === $value && isset($attr['default'])) {
-					$value = $attr['default'];
+					$block['attrs'] = array_merge(
+						$block['attrs'],
+						array($attr_name => $value)
+					);
 				}
-
-				$block['attrs'] = array_merge(
-					$block['attrs'],
-					array($attr_name => $value)
-				);
 			}
 
 			$block['attrs'] = array_filter($block['attrs'], function ($v) {
