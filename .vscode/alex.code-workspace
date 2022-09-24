@@ -38,6 +38,9 @@
 		},
 		"editor.codeActionsOnSave": {
 			"source.fixAll": true
+		},
+		"[php]": {
+			"editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
 		}
 	}
 }
