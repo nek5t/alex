@@ -8,7 +8,7 @@
 		"next": "pnpm --filter @alex/nextjs-frontend run dev -p 9001",
 		"wp-scripts": "pnpm --filter @alex/blocks run start",
 		"concurrently": "concurrently --kill-others-on-fail npm:storybook npm:next npm:wp-scripts",
-		"start": "pm2 start 'npm run concurrently' --name dev"
+		"start": "pm2 start -s 'npm run concurrently' --name dev"
 	},
 	"keywords": [],
 	"author": "",
