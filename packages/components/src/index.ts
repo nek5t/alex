@@ -1,5 +1,6 @@
 export { default as Details } from './Details';
 export { default as Paragraph } from './Paragraph';
+export { default as Image } from './Image';
 export { default as List } from './List';
 export { default as Quote } from './Quote';
 export { default as Columns } from './Columns';

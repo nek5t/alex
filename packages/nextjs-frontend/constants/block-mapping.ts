@@ -2,6 +2,7 @@ import {
 	Column,
 	Columns,
 	Paragraph,
+	Image,
 	List,
 	Quote,
 	Details,
@@ -10,6 +11,7 @@ import {
 const blockMap = new Map();
 
 blockMap.set('core/paragraph', Paragraph);
+blockMap.set('core/image', Image);
 blockMap.set('core/list', List);
 blockMap.set('core/quote', Quote);
 blockMap.set('core/columns', Columns);
