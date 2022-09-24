@@ -9,7 +9,7 @@ class Parser
 
 	public function __construct()
 	{
-		$this->html = new \DOMDocument();
+		$this->html = new \DOMDocument('1.0', 'UTF-8');
 		$this->convert_selector = new CssSelectorConverter();
 		$this->block_registry = \WP_Block_Type_Registry::get_instance();
 	}
@@ -141,7 +141,8 @@ class Parser
 
 	private function load_html($html)
 	{
-		$this->html->loadHtml($html, LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED | LIBXML_NOERROR);
+		$content = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+		$this->html->loadHtml($content, LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED | LIBXML_NOERROR);
 
 		return $this->html;
 	}
