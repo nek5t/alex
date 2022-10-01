@@ -9,7 +9,6 @@ class Controller
 	public function __construct()
 	{
 		$this->namespace = '/alex/v1';
-		$this->route = '/posts';
 		$this->block_parser = new Parser();
 	}
 
@@ -17,7 +16,7 @@ class Controller
 	{
 		register_rest_route(
 			$this->namespace,
-			$this->route,
+			'/posts',
 			array(
 				'methods' => 'GET',
 				'callback' => array($this, 'get_posts'),
@@ -30,6 +29,15 @@ class Controller
 				)
 			),
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/theme',
+			array(
+				'methods' => 'GET',
+				'callback' => array($this, 'get_theme'),
+			)
+			);
 	}
 
 	public function get_posts($request)
@@ -50,5 +58,21 @@ class Controller
 	private function parse_blocks($post)
 	{
 		return $this->block_parser->prepare_blocks(\parse_blocks($post->post_content));
+	}
+
+	public function get_theme() {
+		/**
+		 * Discard user space styles.
+		 */
+		$context = array( 'origin' => 'base' );
+
+		$theme = array(
+			'styles' => wp_get_global_styles( array(), $context ),
+			'settings' => wp_get_global_settings( array(), $context )
+		);
+
+		$response = new \WP_REST_Response($theme);
+
+		return rest_ensure_response($response);
 	}
 }
