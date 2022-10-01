@@ -17,6 +17,8 @@ if (!class_exists('Alex\\Headless\\Controller')) {
 		'core/archives',
 		'core/audio',
 		'core/avatar',
+		'core/button',
+		'core/buttons',
 		'core/paragraph',
 		'core/list',
 		'core/list-item',
