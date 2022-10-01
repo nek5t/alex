@@ -14,10 +14,11 @@ if (!class_exists('Alex\\Headless\\Controller')) {
 	include_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 	define('ALEX_ALLOWED_BLOCKS', array(
+		'core/archives',
 		'core/paragraph',
 		'core/list',
 		'core/list-item',
-		'core/image', // Necessary to load Columns block
+		'core/image',
 		'core/columns',
 		'core/column',
 		'core/quote',
