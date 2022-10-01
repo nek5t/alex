@@ -53,6 +53,39 @@ class Renderer
 		);
 	}
 
+	public function render_block_core_avatar($attributes)
+	{
+		[
+			'userId' => $user_id,
+			'size' => $size
+		] = $attributes;
+
+		$query_attributes = array(
+			'alt',
+			'src',
+			'srcset',
+			'loading'
+		);
+		$avatar = '';
+
+		if (!$user_id) {
+			// Get avatar from block context.
+		} else {
+			$avatar = get_avatar($user_id, $size);
+		}
+
+		$xpath = new \DOMXPath($this->load_html($avatar));
+
+		$img = $xpath->query('//img')->item(0);
+		$avatar_attributes = array();
+
+		foreach ($query_attributes as $attr_name) {
+			$avatar_attributes[$attr_name] = $img->getAttribute($attr_name);
+		}
+
+		return $avatar_attributes;
+	}
+
 	public function render_block_core_image($attributes)
 	{
 		$attrs = array();

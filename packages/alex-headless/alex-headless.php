@@ -16,6 +16,7 @@ if (!class_exists('Alex\\Headless\\Controller')) {
 	define('ALEX_ALLOWED_BLOCKS', array(
 		'core/archives',
 		'core/audio',
+		'core/avatar',
 		'core/paragraph',
 		'core/list',
 		'core/list-item',
