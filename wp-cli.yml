@@ -1,0 +1,43 @@
+path: /app/wordpress
+disabled_commands:
+  - core download
+  - core install
+  - core multisite-convert
+  - core multisite-install
+  - core update
+  - db clean
+  - db create
+  - db drop
+  - db reset
+  - i18n make-json
+  - i18n make-pot
+  - plugin delete
+  - plugin install
+  - plugin uninstall
+  - plugin update
+  - scaffold block
+  - scaffold child-theme
+  - scaffold theme-tests
+  - scaffold underscores
+  - theme delete
+  - theme install
+  - theme update
+config create:
+  # Lando defaults
+  dbname: wordpress
+  dbuser: wordpress
+  dbpass: wordpress
+  dbhost: database
+  extra-php: |
+    define( 'WP_ENVIRONMENT_TYPE', 'local' );
+    define( 'WP_DISABLE_FATAL_ERROR_HANDLER', true );
+    define( 'WP_DEBUG', true );
+    define( 'WP_DEBUG_LOG', true );
+    define( 'WP_DEBUG_DISPLAY', true );
+    define( 'SCRIPT_DEBUG', true );
+scaffold plugin:
+  dir: /app/packages
+scaffold post-type:
+  textdomain: alex
+scaffold taxonomy:
+  textdomain: alex
