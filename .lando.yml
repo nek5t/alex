@@ -1,0 +1,29 @@
+name: alex
+recipe: wordpress
+config:
+    via: nginx
+    webroot: wordpress
+    php: 8.1
+proxy:
+    node:
+        - alex-sb.lndo.site:9000
+        - alex-next.lndo.site:9001
+services:
+    node:
+        type: node:18
+        build_as_root:
+            - corepack enable
+            - corepack prepare pnpm@latest --activate
+        build:
+            - pnpm install
+    appserver:
+        build:
+          - find . -maxdepth 3 -type f -name composer.json -execdir composer install --no-interaction \;
+env_file:
+    - .env.local
+tooling:
+    npm:
+        service: node
+        cmd: pnpm
+exclude:
+    - .pnpm-store
