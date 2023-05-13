@@ -10,13 +10,12 @@ proxy:
         - alex-next.lndo.site:9001
 services:
     node:
-        type: node:16
-        run_as_root:
+        type: node:18
+        build_as_root:
             - corepack enable
             - corepack prepare pnpm@latest --activate
-        run:
-            - pnpm update -r
-            - pnpm run start
+        build:
+            - pnpm install
     appserver:
         run:
             - find packages -maxdepth 2 -type f -name composer.json -execdir composer install --no-dev --prefer-dist --no-interaction \;
