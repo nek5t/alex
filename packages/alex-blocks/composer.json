@@ -1,0 +1,14 @@
+{
+    "name": "alex/alex-blocks",
+    "description": "Custom Gutenberg blocks for Alex sites.",
+    "type": "wordpress-plugin",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Eric Phillips",
+            "email": "github@nekvtcode.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

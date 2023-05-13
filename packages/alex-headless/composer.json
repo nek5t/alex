@@ -1,6 +1,7 @@
 {
-	"name": "alex/headless",
+	"name": "alex/alex-headless",
 	"description": "Surface blocks as structured data in the WordPress REST API.",
+	"licese": "GPL",
 	"type": "wordpress-plugin",
 	"require": {
 		"symfony/css-selector": "^6.1"

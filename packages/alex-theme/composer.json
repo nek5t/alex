@@ -1,0 +1,14 @@
+{
+    "name": "alex/alex-theme",
+    "description": "A barebones block-based theme.",
+    "type": "wordpress-theme",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Eric Phillips",
+            "email": "github@nekvtcode.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
