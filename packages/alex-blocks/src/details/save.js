@@ -19,13 +19,13 @@ import { Details } from '@alex/components';
  *
  * @return {WPElement} Element to render.
  */
-export default function save({ attributes }) {
+export default function save( { attributes } ) {
 	const props = useBlockProps.save();
 
 	props.summary = (
-		<RichText.Content tagName="h3" value={attributes.summary} />
+		<RichText.Content tagName="h3" value={ attributes.summary } />
 	);
 	props.details = <InnerBlocks.Content />;
 
-	return <Details {...props} />;
+	return <Details { ...props } />;
 }
