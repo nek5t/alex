@@ -7,11 +7,12 @@
  * Text Domain:       alexblocks
  */
 
-function alexblocks_register_block_types() {
-    $blocks = glob( plugin_dir_path( __FILE__ ) . 'build/**/block.json', GLOB_NOSORT );
+function alexblocks_register_block_types()
+{
+    $blocks = glob(plugin_dir_path(__FILE__) . 'build/**/block.json', GLOB_NOSORT);
 
     foreach( $blocks as $block ) {
-        register_block_type( $block );
+        register_block_type($block);
     }
 }
-add_action( 'init', 'alexblocks_register_block_types' );
+add_action('init', 'alexblocks_register_block_types');
