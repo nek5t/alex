@@ -1,6 +1,14 @@
 <?php
+/**
+ * Theme functions file
+ *
+ * @package alex/alex-theme
+ */
 
 if ( ! function_exists( 'alextheme_support' ) ) :
+	/**
+	 * Setup support for theme features
+	 */
 	function alextheme_support() {
 
 		// Adding support for core block visual styles.
@@ -19,5 +27,4 @@ function alextheme_scripts() {
 	// Enqueue theme stylesheet.
 	wp_enqueue_style( 'emptytheme-style', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get( 'Version' ) );
 }
-
 add_action( 'wp_enqueue_scripts', 'alextheme_scripts' );
