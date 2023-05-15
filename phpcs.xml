@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Alex" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Alex"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
 
 	<description>Standard WPCS setup for PHPCS</description>
 
@@ -20,6 +21,12 @@
 	<exclude-pattern>wordpress/xmlrpc.php</exclude-pattern>
 	<exclude-pattern>wordpress/wp-content/plugins/*</exclude-pattern>
 
+	<!-- Exclude directory index files -->
+	<exclude-pattern>index.php</exclude-pattern>
+
+	<!-- Exclude block editor assets definitions -->
+	<exclude-pattern>index.asset.php</exclude-pattern>
+
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>vendor/*</exclude-pattern>
 
@@ -30,10 +37,10 @@
 	<arg name="extensions" value="php,inc" />
 
 	<!-- Strip the filepaths down to the relevant bit. -->
-	<arg name="basepath" value="."/>
+	<arg name="basepath" value="." />
 
 	<!-- Check up to 8 files simultaneously. -->
-	<arg name="parallel" value="8"/>
+	<arg name="parallel" value="8" />
 
 
 	<!--
@@ -41,6 +48,12 @@
 	SET UP THE RULESETS
 	#############################################################################
 	-->
+
+	<!-- Allow PSR-4 compliant filenames -->
+	<rule ref="WordPress">
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+	</rule>
 
 	<!-- Include the WordPress-Extra standard. -->
 	<rule ref="WordPress-Extra">
@@ -63,11 +76,11 @@
 	</rule>
 
 	<!-- Let's also check that everything is properly documented. -->
-	<rule ref="WordPress-Docs"/>
+	<rule ref="WordPress-Docs" />
 
 	<!-- Add in some extra rules from other standards. -->
-	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
-	<rule ref="Generic.Commenting.Todo"/>
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter" />
+	<rule ref="Generic.Commenting.Todo" />
 
 	<!-- Check for PHP cross-version compatibility. -->
 	<!--
@@ -99,12 +112,12 @@
 	the wiki:
 	https://github.com/WordPress/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
 	-->
-	<config name="minimum_supported_wp_version" value="4.9"/>
+	<config name="minimum_supported_wp_version" value="4.9" />
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="alex"/>
+				<element value="alex" />
 			</property>
 		</properties>
 	</rule>
@@ -112,7 +125,7 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="alex"/>
+				<element value="alex" />
 			</property>
 		</properties>
 	</rule>
