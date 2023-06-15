@@ -17,6 +17,9 @@ services:
         build:
             - pnpm install
     appserver:
+        build_as_root:
+          - apt-get update
+          - DEBIAN_FRONTEND=noninteraction apt-get install subversion
         build:
           - find . -maxdepth 3 -type f -name composer.json -execdir composer install --no-interaction \;
 env_file:
