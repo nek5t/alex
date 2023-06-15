@@ -6,19 +6,34 @@ namespace Alex\Headless\Parser;
 
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use Alex\Headless\Parser\BlockParserInterface;
-use WP_Block_Type_Registry;
+use Alex\Headless\Parser\usesBlockRegistry;
 
 class StaticBlockParser implements BlockParserInterface
 {
+	use usesBlockRegistry;
 	public function __construct(protected \DOMDocument $html, protected CssSelectorConverter $convert_selector) {}
 
-	public function parse(array $block)
+	/**
+	 * Parse static block attributes
+	 *
+	 * @param array $block
+	 * @return array The block with all of its attributes
+	 */
+	public function parse(array $block) : array
 	{
-		$block_name = $block['blockName'];
-		$block_type = WP_Block_Type_Registry::get_instance()->get_registered( $block_name );
+		try {
+			$block_type = $this->getBlockType($block);
+			$block['attrs'] = $block_type->prepare_attributes_for_render( $block['attrs'] );
+
+			return $block;
+		} catch (UnregisteredBlockException $e) {
+			error_log($e);
+
+			return [];
+		}
 	}
 
-		/**
+	/**
 	 * Load HTML into a DOMDOcument instance for processing
 	 *
 	 * @param string $html  The HTML fragment to load.
