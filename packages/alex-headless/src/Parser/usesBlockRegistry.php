@@ -40,5 +40,7 @@ trait usesBlockRegistry
 		if (null === $block_type) {
 			throw new UnregisteredBlockException("$block_name is not a registered block type.");
 		}
+
+		return $block_type;
 	}
 }
